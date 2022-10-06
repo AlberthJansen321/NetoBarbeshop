@@ -1,1 +1,4 @@
-# NetoBarbeshop.API
+# NetoBarbeshop
+
+
+Projeto para uma barbearia

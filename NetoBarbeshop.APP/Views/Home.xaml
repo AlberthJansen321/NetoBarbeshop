@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NetoBarbeshop.APP.Views.Home"
+             xmlns:behaviors="clr-namespace:NetoBarbeshop.APP.Common"        
+             xmlns:model="clr-namespace:NetoBarbeshop.APP.Models"
+             xmlns:viewmodel="clr-namespace:NetoBarbeshop.APP.ViewModels"
+             xmlns:controls="clr-namespace:NetoBarbeshop.APP.Controls"
+             Title="Home">
+
+    <ContentPage.Resources>
+
+        <ContentView x:Key="BasicEmptyView">
+            <StackLayout Margin="20">
+
+                <Image
+                 HorizontalOptions="CenterAndExpand"
+                 Source="oops.png"
+                 VerticalOptions="CenterAndExpand" />
+
+            </StackLayout>
+        </ContentView>
+
+    </ContentPage.Resources>
+
+    
+    <Grid
+    ColumnDefinitions="*,*"
+    ColumnSpacing="5"
+    RowDefinitions="auto,*,Auto"
+    RowSpacing="3"
+    BackgroundColor="Black">
+
+
+        <Grid Grid.Row="0" RowDefinitions="*,*" Grid.ColumnSpan="2" ColumnDefinitions="*,*,*,*" Margin="10">
+          
+            <Label TextColor="{StaticResource Primary}" Style="{StaticResource SmallLabel}" FontSize="13" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Text="Data Inicial:" Grid.Column="0"></Label>
+            <DatePicker Date="{Binding DataInicial}" TextColor="White" Grid.Row="0" Grid.Column="1" Style="{StaticResource SmallLabel}"></DatePicker>
+            <Label TextColor="{StaticResource Primary}" Style="{StaticResource SmallLabel}" FontSize="13"  FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Text="Data Final:" Grid.Column="2"></Label>
+            <DatePicker Date="{Binding DataFinal}"  TextColor="White" Grid.Row="0" Grid.Column="3"  Style="{StaticResource SmallLabel}" ></DatePicker>
+         
+            <SearchBar
+                   x:Name="searchBar" Grid.Row="1" 
+                   Grid.Column="0"
+                   Grid.ColumnSpan="4"
+                   BackgroundColor="Black"
+                   TextColor="White"
+                   Placeholder="Pesquise aqui"
+                   SearchCommand="{Binding SearchServiceDoneCommand}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+
+        </Grid>
+
+
+        <CollectionView
+        x:Name="collectionview"
+        ItemsSource="{Binding ServiceDones}"
+        BackgroundColor="Transparent" 
+        SelectionMode="None"
+        Grid.Row="1"
+        Grid.ColumnSpan="2">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Grid Margin="10">
+
+                        <Frame HeightRequest="125" Style="{StaticResource CardView}">
+
+                            <SwipeView Threshold="70">
+
+                                <SwipeView.RightItems>
+
+                                    <SwipeItems Mode="Execute">
+
+                                        <SwipeItem 
+                                        Text="Delete"
+                                        IconImageSource="delete.png"
+                                        BackgroundColor="Red"             
+                                        Command="{Binding Source={x:Reference collectionview}, Path=BindingContext.DeleteServiceDoneCommand}"
+                                        CommandParameter="{Binding .}"/>
+
+                                    </SwipeItems>
+
+                                </SwipeView.RightItems>
+                                <!--<Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomePageViewModel}}, Path=GoToDetailsCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>-->
+
+                                <!-- Content -->
+                                <Grid Padding="0" ColumnDefinitions="auto,auto">
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HeightRequest="125"
+                                        Source="{Binding Status}"
+                                        WidthRequest="125" />
+
+                                    <VerticalStackLayout VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" Margin="10" Grid.Column="1">
+                                        <Label Style="{StaticResource LargeLabel}" TextColor="White" LineBreakMode="TailTruncation" Text="{Binding ClienteNome,StringFormat='Cliente: {0}'}" />
+                                        <Label Style="{StaticResource MediumLabel}" TextColor="White" LineBreakMode="TailTruncation"  Text="{Binding Data,StringFormat='Data: {0}'}"/>
+                                        <Label Style="{StaticResource MediumLabel}" TextColor="White" LineBreakMode="TailTruncation" Text="{Binding Valor,StringFormat='Valor: {0} R$'}"/>
+                                        <Label Style="{StaticResource MediumLabel}" TextColor="White" LineBreakMode="TailTruncation" Text="{Binding ServiceNome,StringFormat='Serviço: {0}'}" />
+                                    </VerticalStackLayout>
+                                    
+                                </Grid>
+                            </SwipeView>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" ColumnDefinitions="*,*,*" Margin="10">
+            <Button
+             Grid.Column="0"
+            Command="{Binding GetserviceDonesPendentesCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Style="{StaticResource ButtonOutline}"
+            Text="Pendentes"       
+               Margin="3"
+                />
+            <!--  Add this  -->
+            <Button
+            Grid.Column="1"
+            Command="{Binding GetserviceDonesFinalizadosCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Style="{StaticResource ButtonOutline}"
+            Text="Finalizados"
+                 Margin="3"/>
+
+            <Button
+            Grid.Column="2"
+            Command="{Binding GetserviceDonesCanceladosCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Style="{StaticResource ButtonOutline}"
+            Text="Cancelados"
+                 Margin="3"/>
+        </Grid>
+
+
+        <ActivityIndicator
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="FillAndExpand"
+            Color="White"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand" />
+    </Grid>
+
+</ContentPage>

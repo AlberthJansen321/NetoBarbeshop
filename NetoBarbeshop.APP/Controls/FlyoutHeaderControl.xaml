@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NetoBarbeshop.APP.Controls.FlyoutHeaderControl">
+    <Grid BackgroundColor="Black" RowDefinitions="auto,auto,auto">
+        <Image Aspect="AspectFill" 
+               Source="flyoutheaderimage" 
+               Opacity="0.4" />
+        <StackLayout Grid.Row="0" Spacing="5" VerticalOptions="EndAndExpand" Margin="20">
+            <Label Grid.Row="0" TextColor="White" CharacterSpacing="2" Text="Seja Bem-Vindo" Style="{StaticResource LargeLabel}" FontAttributes="Bold"></Label>
+            <Label Grid.Row="0" TextColor="White" CharacterSpacing="2" x:Name="LabelEmail" TextDecorations="Underline"  Style="{StaticResource LargeLabel}" FontAttributes="Bold"></Label>
+        </StackLayout>
+    </Grid>
+   
+</StackLayout>

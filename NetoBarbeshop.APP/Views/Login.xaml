@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NetoBarbeshop.APP.Views.Login"
+             xmlns:model="clr-namespace:NetoBarbeshop.APP.Models"
+             xmlns:viewmodel="clr-namespace:NetoBarbeshop.APP.ViewModels"
+             x:DataType="viewmodel:LoginPageViewModel"
+             Title="Login"
+             BackgroundColor="Black"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+        <ScrollView 
+            VerticalScrollBarVisibility="Never" 
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand" >
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,auto" Padding="20,0">
+
+                <Image Grid.Row="0"
+                Source="logo"
+                SemanticProperties.Description="logoimg"
+                HeightRequest="150"
+                WidthRequest="150"
+                HorizontalOptions="Center"/>
+
+                <StackLayout Grid.Row="1" >
+                    <Label Text="Bem-Vindo" Style="{StaticResource LargeLabel}" TextTransform="Uppercase" TextColor="{StaticResource Primary}" FontSize="28" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="Faça Login na sua conta" Style="{StaticResource LargeLabel}" TextColor="{StaticResource Primary}" HorizontalTextAlignment="Center" TextDecorations="None"/>
+                </StackLayout>
+
+
+                <Grid Grid.Row="2" ColumnDefinitions="auto,100*" Margin="0,20">
+                    <Frame Grid.Column="0" HasShadow="True" BackgroundColor="#eade72" HeightRequest="55" WidthRequest="55" CornerRadius="25">
+                        <Image Source="user.png" Grid.Column="0" HeightRequest="20" WidthRequest="20"/>
+                    </Frame>
+                    <Frame  Grid.Column="1" HeightRequest="45" BackgroundColor="Black" Style="{StaticResource CardViewEntry}" >
+                        <Entry x:Name="Email" Text="{Binding Email}" Margin="10,0,0,0" BackgroundColor="Transparent" Style="{StaticResource EntryStyle}" IsEnabled="{Binding IsNotBusy}" Grid.Column="1" TextColor="White" PlaceholderColor="White" Placeholder="Email" Keyboard="Email"/>
+                    </Frame>
+                </Grid>
+
+                <Grid Grid.Row="3" ColumnDefinitions="auto,100*">
+                    <Frame Grid.Column="0" HasShadow="True" BackgroundColor="#eade72" HeightRequest="55" WidthRequest="55" CornerRadius="25">
+                        <Image Source="password.png" Grid.Column="0" HeightRequest="20" WidthRequest="20"/>
+                    </Frame>
+                    <Frame  Grid.Column="1" HeightRequest="45"  BackgroundColor="Black" Style="{StaticResource CardViewEntry}">
+                        <Entry x:Name="Senha" Text="{Binding Senha}"  BackgroundColor="Transparent" Style="{StaticResource EntryStyle}" IsEnabled="{Binding IsNotBusy}" Margin="10,0,0,0" Grid.Column="1" TextColor="White" PlaceholderColor="White" Placeholder="Senha" IsPassword="True"/>
+                    </Frame>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Button  IsEnabled="{Binding IsNotBusy}" Margin="50,50"  Command="{Binding LoginCommand}" 
+                             TextColor="White" Style="{StaticResource MediumLabel}"
+                             BackgroundColor="Black" BorderWidth="2" BorderColor="{StaticResource Primary}" x:Name="buttonlogin" Text="Login" />
+                </Grid>
+            </Grid>
+        </ScrollView>
+        
+         <!--Indicador de atividade-->
+        <AbsoluteLayout
+                    x:Name="layoutindicator"
+                    BackgroundColor="Black"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    IsVisible="{Binding IsBusy}"
+                    Opacity="0.9">
+            <ActivityIndicator Color="#eade72"
+                           x:Name="indicator"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,0.3,0.1"
+                           AbsoluteLayout.LayoutFlags="All"
+                           IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"/>
+        </AbsoluteLayout>
+         <!--fim do indicador-->      
+        
+    </AbsoluteLayout>
+</ContentPage>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NetoBarbeshop.APP.Views.Add"
+             xmlns:model="clr-namespace:NetoBarbeshop.APP.Models"
+             xmlns:viewmodel="clr-namespace:NetoBarbeshop.APP.ViewModels"
+             x:DataType="viewmodel:HomePageViewModel"
+             Title="Cadastrar"
+             BackgroundColor="Black">
+
+    <StackLayout Spacing="15" Padding="30">
+
+        <Label Text="Nome" Style="{StaticResource MediumLabel}" TextColor="{StaticResource Primary}" FontAttributes="Bold"></Label>
+
+        <Frame HeightRequest="45" BackgroundColor="Black" Style="{StaticResource CardViewEntry}" >
+            <Entry Text="{Binding ClienteNomecadastro}" BackgroundColor="Transparent" Style="{StaticResource EntryStyle}" TextColor="White" PlaceholderColor="White" Placeholder="Nome do Cliente"/>
+        </Frame>
+
+        <Label Text="Data" Style="{StaticResource MediumLabel}" TextColor="{StaticResource Primary}" FontAttributes="Bold"></Label>
+
+        <DatePicker   BindingContext="{Binding Datacadastro}" Style="{StaticResource MediumLabel}" MaximumDate="{Binding MaxDate}" TextColor="White"></DatePicker>
+
+        <Label Text="Valor" Style="{StaticResource MediumLabel}" TextColor="{StaticResource Primary}" FontAttributes="Bold"></Label>
+
+        <Frame HeightRequest="45" BackgroundColor="Black" Style="{StaticResource CardViewEntry}" >
+            <Entry Text="{Binding Valorcadastro}" BackgroundColor="Transparent" Style="{StaticResource EntryStyle}" TextColor="White" PlaceholderColor="White" Placeholder="Valor do Serviço" Keyboard="Numeric"/>
+        </Frame>
+
+        <Label Text="Serviço" Style="{StaticResource MediumLabel}" TextColor="{StaticResource Primary}" FontAttributes="Bold"></Label>
+
+        <Picker x:Name="picker" 
+             TextColor="White"
+             TitleColor="White"
+             Title="Selecione um serviço" 
+             ItemsSource="{Binding Services}"
+             ItemDisplayBinding="{Binding Nome}"
+             SelectedItem="{Binding Selectedservice}"/>
+        <StackLayout Padding="50">
+
+            <Button 
+                    Text="Cadastrar"
+                    IsEnabled="{Binding IsNotBusy}"
+        Command="{Binding AddServiceDoneCommand}"
+        TextColor="White" Style="{StaticResource MediumLabel}"
+        BackgroundColor="Black" BorderWidth="2" BorderColor="{StaticResource Primary}"></Button>
+
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentPage>

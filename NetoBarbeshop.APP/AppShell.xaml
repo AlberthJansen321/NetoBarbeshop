@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="NetoBarbeshop.APP.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:NetoBarbeshop.APP.Views"
+    xmlns:views="clr-namespace:NetoBarbeshop.APP.Views"
+    Shell.TabBarIsVisible="True"
+    FlyoutBackgroundColor="#eade72"
+    FlyoutBackgroundImageAspect="AspectFill"
+    FlyoutHeaderBehavior="CollapseOnScroll" >
+
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="Black" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" ApplyToDerivedTypes="True" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <ShellContent Shell.FlyoutBehavior="Disabled" FlyoutItemIsVisible="False"
+                  ContentTemplate="{DataTemplate views:Loading}"
+                  Route="Loading"/>
+
+    <ShellContent Title="Login" Shell.FlyoutBehavior="Disabled" FlyoutItemIsVisible="False"
+                  ContentTemplate="{DataTemplate views:Login}"
+                  Route="Login"/>
+
+
+    
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
+        
+        <ShellContent  Route="Home" Title="Home" Icon="home" ContentTemplate="{DataTemplate views:Home}"/>
+        
+        <ShellContent Title="Adicionar Serviço" Icon="add" ContentTemplate="{DataTemplate views:Add}"/>
+
+        <ShellContent Title="Ranking" Icon="ranking" ContentTemplate="{DataTemplate views:Ranking}"/>
+
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <StackLayout Padding="20">
+            <Button Text="Sair" TextColor="White" FontAttributes="Bold" FontSize="18" FontFamily="Sitka" BackgroundColor="Black" Command="{Binding SignOutCommand}"></Button>
+        </StackLayout>
+    </Shell.FlyoutFooter>
+
+</Shell>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NetoBarbeshop.APP.Views.Loading"
+             Title="Loading"
+             BackgroundColor="Black"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <!--Indicador de atividade-->
+        <AbsoluteLayout
+                    x:Name="layoutindicator"
+                    BackgroundColor="Black"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    IsVisible="{Binding IsBusy}"
+                    Opacity="0.9">
+            <ActivityIndicator Color="#eade72"
+                           x:Name="indicator"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,0.3,0.1"
+                           AbsoluteLayout.LayoutFlags="All"
+                           IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"/>
+        </AbsoluteLayout>
+        <!--fim do indicador-->
+
+    </AbsoluteLayout>
+</ContentPage>
